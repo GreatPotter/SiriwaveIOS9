@@ -15,6 +15,7 @@ IB_DESIGNABLE
  * Tells the waveform to redraw itself using the given level (normalized value)
  */
 - (void)updateWithLevel:(CGFloat)level;
+- (void)configure;
 
 /*
  * The total number of waves
@@ -27,6 +28,9 @@ IB_DESIGNABLE
  * Default: white
  */
 @property (nonatomic, strong) IBInspectable UIColor *waveColor;
+
+
+@property (nonatomic, strong) IBInspectable NSArray *colors;
 
 /*
  * Line width used for the proeminent wave

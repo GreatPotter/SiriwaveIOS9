@@ -7,27 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B2EC32C7EBF9CA480E9501E8 /* libPods-RNSiriWaveView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E0F6120D010B2C4CF632E3 /* libPods-RNSiriWaveView.a */; };
+		98427335205C46F200D3C87D /* SiriWaveCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427334205C46F100D3C87D /* SiriWaveCurve.m */; };
+		98427338205C46FA00D3C87D /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427336205C46F900D3C87D /* SCSiriWaveformView.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSiriWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSiriWaveView.m */; };
-		CEE1E69F201A2AA200CE4599 /* libSCSiriWaveformView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1E69E201A2A9B00CE4599 /* libSCSiriWaveformView.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CEE1E639201A0CF800CE4599 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CEE1E634201A0CF800CE4599 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FB2B35273B7D8204BFD8947D6C097E77;
-			remoteInfo = "Pods-RNSiriWaveView";
-		};
-		CEE1E69D201A2A9B00CE4599 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CEE1E634201A0CF800CE4599 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C434BCB06AA96085326392C5E34B179E;
-			remoteInfo = SCSiriWaveformView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
@@ -43,12 +26,12 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNSiriWaveView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSiriWaveView.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		53E2AF2149BA85793DD10F24 /* Pods-RNSiriWaveView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSiriWaveView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RNSiriWaveView/Pods-RNSiriWaveView.debug.xcconfig"; sourceTree = "<group>"; };
-		55E0F6120D010B2C4CF632E3 /* libPods-RNSiriWaveView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNSiriWaveView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98427333205C46F100D3C87D /* SiriWaveCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiriWaveCurve.h; sourceTree = "<group>"; };
+		98427334205C46F100D3C87D /* SiriWaveCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiriWaveCurve.m; sourceTree = "<group>"; };
+		98427336205C46F900D3C87D /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SCSiriWaveformView.m; path = SCSiriWaveformView/SCSiriWaveformView.m; sourceTree = "<group>"; };
+		98427337205C46F900D3C87D /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSiriWaveformView.h; path = SCSiriWaveformView/SCSiriWaveformView.h; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNSiriWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSiriWaveView.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSiriWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSiriWaveView.m; sourceTree = "<group>"; };
-		CA8D85C4077A8E40588A54D7 /* Pods-RNSiriWaveView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSiriWaveView.release.xcconfig"; path = "Pods/Target Support Files/Pods-RNSiriWaveView/Pods-RNSiriWaveView.release.xcconfig"; sourceTree = "<group>"; };
-		CEE1E634201A0CF800CE4599 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEE1E69F201A2AA200CE4599 /* libSCSiriWaveformView.a in Frameworks */,
-				B2EC32C7EBF9CA480E9501E8 /* libPods-RNSiriWaveView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,42 +53,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1B5F11179D3CA7ADF8DB8773 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				53E2AF2149BA85793DD10F24 /* Pods-RNSiriWaveView.debug.xcconfig */,
-				CA8D85C4077A8E40588A54D7 /* Pods-RNSiriWaveView.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
 				B3E7B5881CC2AC0600A0062D /* RNSiriWaveView.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSiriWaveView.m */,
+				98427333205C46F100D3C87D /* SiriWaveCurve.h */,
+				98427334205C46F100D3C87D /* SiriWaveCurve.m */,
+				98427337205C46F900D3C87D /* SCSiriWaveformView.h */,
+				98427336205C46F900D3C87D /* SCSiriWaveformView.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				1B5F11179D3CA7ADF8DB8773 /* Pods */,
-				93AA35BFD524E7A562E4DCE8 /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		93AA35BFD524E7A562E4DCE8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CEE1E634201A0CF800CE4599 /* Pods.xcodeproj */,
-				55E0F6120D010B2C4CF632E3 /* libPods-RNSiriWaveView.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CEE1E635201A0CF800CE4599 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CEE1E63A201A0CF800CE4599 /* libPods-RNSiriWaveView.a */,
-				CEE1E69E201A2A9B00CE4599 /* libSCSiriWaveformView.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,11 +73,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNSiriWaveView" */;
 			buildPhases = (
-				E4324A6271C77805B01607C1 /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
-				5406A5C96D65CE02E8557C75 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -156,12 +110,6 @@
 			mainGroup = 58B511D21A9E6C8500147676;
 			productRefGroup = 58B511D21A9E6C8500147676;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = CEE1E635201A0CF800CE4599 /* Products */;
-					ProjectRef = CEE1E634201A0CF800CE4599 /* Pods.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* RNSiriWaveView */,
@@ -169,65 +117,14 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		CEE1E63A201A0CF800CE4599 /* libPods-RNSiriWaveView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-RNSiriWaveView.a";
-			remoteRef = CEE1E639201A0CF800CE4599 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CEE1E69E201A2A9B00CE4599 /* libSCSiriWaveformView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSCSiriWaveformView.a;
-			remoteRef = CEE1E69D201A2A9B00CE4599 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5406A5C96D65CE02E8557C75 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RNSiriWaveView/Pods-RNSiriWaveView-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E4324A6271C77805B01607C1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNSiriWaveView-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B3E7B58A1CC2AC0600A0062D /* RNSiriWaveView.m in Sources */,
+				98427335205C46F200D3C87D /* SiriWaveCurve.m in Sources */,
+				98427338205C46FA00D3C87D /* SCSiriWaveformView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +214,6 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53E2AF2149BA85793DD10F24 /* Pods-RNSiriWaveView.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -334,7 +230,6 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA8D85C4077A8E40588A54D7 /* Pods-RNSiriWaveView.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

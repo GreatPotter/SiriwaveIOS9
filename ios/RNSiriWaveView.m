@@ -49,6 +49,8 @@ RCT_CUSTOM_VIEW_PROPERTY(props, NSDictonary *, UIView)
     siriWave.density = [density floatValue];
     siriWave.phaseShift = [phaseShift floatValue];
     
+    [siriWave configure];
+    
     [view addSubview: siriWave];
 }
 
