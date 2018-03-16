@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2EC32C7EBF9CA480E9501E8 /* libPods-RNSiriWaveView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E0F6120D010B2C4CF632E3 /* libPods-RNSiriWaveView.a */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSiriWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSiriWaveView.m */; };
 		CEE1E69F201A2AA200CE4599 /* libSCSiriWaveformView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1E69E201A2A9B00CE4599 /* libSCSiriWaveformView.a */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE1E69F201A2AA200CE4599 /* libSCSiriWaveformView.a in Frameworks */,
+				B2EC32C7EBF9CA480E9501E8 /* libPods-RNSiriWaveView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

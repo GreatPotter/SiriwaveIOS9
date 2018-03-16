@@ -24,17 +24,8 @@ export default class App extends Component<{}> {
   }
 
   componentDidMount () {
-    this.setState({
-      startAnimation: true
-    })
-
-    setInterval(() => {
-      if (this.state.startAnimation) {
-        this.setState({ startAnimation: false, stopAnimation: true });
-      } else {
-        this.setState({ startAnimation: true, stopAnimation: false });
-      }
-    }, 30000)
+   
+    this.setState({ startAnimation: true, stopAnimation: false });
   }
 
   render() {
