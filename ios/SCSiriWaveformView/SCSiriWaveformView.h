@@ -32,6 +32,8 @@ IB_DESIGNABLE
 
 @property (nonatomic, strong) IBInspectable NSArray *colors;
 
+
+@property (nonatomic, assign)  IBInspectable CGFloat intensity;
 /*
  * Line width used for the proeminent wave
  * Default: 3.0f
@@ -60,7 +62,7 @@ IB_DESIGNABLE
 /*
  * The current amplitude
  */
-@property (nonatomic, assign, readonly) IBInspectable CGFloat amplitude;
+@property (nonatomic, assign) IBInspectable CGFloat amplitude;
 
 /*
  * The lines are joined stepwise, the more dense you draw, the more CPU power is used.

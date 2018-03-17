@@ -11,7 +11,7 @@
 #import "math.h"
 
 static const CGFloat kDefaultFrequency          = 1.5f;
-static const CGFloat kDefaultAmplitude          = 1.0f;
+static const CGFloat kDefaultAmplitude          = 0.1f;
 static const CGFloat kDefaultIdleAmplitude      = 0.01f;
 static const CGFloat kDefaultNumberOfWaves      = 5.0f;
 static const CGFloat kDefaultPhaseShift         = -0.15f;
@@ -22,7 +22,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
 @interface SCSiriWaveformView ()
 
 @property (nonatomic, assign) CGFloat phase;
-@property (nonatomic, assign) CGFloat amplitude;
 
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;
@@ -68,12 +67,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
     
     self.primaryWaveLineWidth = kDefaultPrimaryLineWidth;
     self.secondaryWaveLineWidth = kDefaultSecondaryLineWidth;
-    
-    self.colors = [NSArray arrayWithObjects :
-                    [UIColor colorWithRed:32.0/255.0 green:133.0/255.0 blue:252.0/255.0 alpha:1.0],
-                    [UIColor colorWithRed:94.0/255.0 green:252.0/255.0 blue:169.0/255.0 alpha:1.0],
-                    [UIColor colorWithRed:253.0/255.0 green:71.0/255.0 blue:103.0/255.0 alpha:1.0],
-                    nil];
 }
 
 -(void)configure
@@ -82,7 +75,7 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
     
     for (int i = 0; i < _colors.count; i++) {
         UIColor *col = self.colors[i];
-        for (int j = 0; j < 3 * ((float)rand() / RAND_MAX); j++) {
+        for (int j = 0; j < 3 * ((float)rand() / RAND_MAX) + 1; j++) {
             SiriWaveCurve *curve = [[SiriWaveCurve alloc] init];
             curve.color = col;
             curve.parent = self;
@@ -94,7 +87,17 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
 - (void)updateWithLevel:(CGFloat)level
 {
     self.phase += self.phaseShift;
-    self.amplitude = fmax(level, self.idleAmplitude);
+//    self.amplitude = fmax(level, self.idleAmplitude);
+    CGFloat speed = 0.1;
+    if (fabs(self.amplitude - _intensity) < speed) {
+        self.amplitude = _intensity;
+    } else {
+        if (self.amplitude < _intensity) {
+            self.amplitude += speed;
+        } else {
+            self.amplitude -= speed;
+        }
+    }
     
     [self setNeedsDisplay];
 }
@@ -103,6 +106,7 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    
     CGContextClearRect(context, self.bounds);
     
     [self.backgroundColor set];
@@ -110,6 +114,9 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
     if (!self.curves) return;
     // We draw multiple sinus waves, with equal phases but altered amplitudes, multiplied by a parable function.
     for (int i = 0; i < self.curves.count; i++) {
+        context = UIGraphicsGetCurrentContext();
+        CGMutablePathRef path = CGPathCreateMutable();
+        CGContextSaveGState(context);
         
         CGFloat height2 = CGRectGetHeight(self.bounds) / 2.0f;
         CGFloat width = CGRectGetWidth(self.bounds);
@@ -137,11 +144,14 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
             xInit = fmin(xInit, x);
             
             if (j == -3) {
-                CGContextMoveToPoint(context, x, y);
+//                CGContextMoveToPoint(context, x, y);
+                CGPathMoveToPoint(path, NULL, x, y);
             } else {
-                CGContextAddLineToPoint(context, x, y);
+//                CGContextAddLineToPoint(context, x, y);
+                CGPathAddLineToPoint(path, NULL, x, y);
             }
         }
+        CGPathAddLineToPoint(path, NULL, xInit, yBase);
         
         xInit = 10000000;
         for (CGFloat j = -3; j <= 3; j += 0.01) {
@@ -151,30 +161,41 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
             xInit = fmin(xInit, x);
             
             if (j == -3) {
-                CGContextMoveToPoint(context, x, y);
+                //                CGContextMoveToPoint(context, x, y);
+                CGPathMoveToPoint(path, NULL, x, y);
             } else {
-                CGContextAddLineToPoint(context, x, y);
+                //                CGContextAddLineToPoint(context, x, y);
+                CGPathAddLineToPoint(path, NULL, x, y);
             }
         }
         
-        CGContextStrokePath(context);
-//
-//        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceGray();
-//        UIColor *color = self.colors[i%3];
-//        const CGFloat *col = CGColorGetComponents( color.CGColor );
-//        CGFloat components[] = {
-//            col[0], col[1], col[2], 0.4f,
-//            col[0], col[1], col[2], 0.2f,
-//        };
-//        CGFloat locations[] = {0, 1};
-//        CGPoint center = CGPointMake(xBase, yBase);
-//
-//        CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpaceRef, components, locations, 2);
-//        CGContextDrawRadialGradient(context, gradient, center, _height * 1.15, center, _height * 0.3, 0);
-//
-//        // Release objects
+        CGFloat h = fabs([curve _ypos:0 amplitude:self.amplitude maxAmplitude:maxAmplitude]);
+        
+        CGPathAddLineToPoint(path, NULL, xInit, yBase);
+        
+        CGContextAddPath(context, path);
+        CGContextClip(context);
+        
+//        CGContextStrokePath(context);
+
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        UIColor *color = self.colors[i%3];
+        const CGFloat *col = CGColorGetComponents( color.CGColor );
+        CGFloat components[] = {
+            col[0], col[1], col[2], 1.0f,
+            col[0], col[1], col[2], 0.2f,
+        };
+        CGFloat locations[] = {0, 1};
+        CGPoint center = CGPointMake(xBase, yBase);
+
+        CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpaceRef, components, locations, 2);
+        CGContextDrawRadialGradient(context, gradient, center, width2 , center, h * 0.3, kCGGradientDrawsAfterEndLocation);
+        
+
+        // Release objects
 //        CGColorSpaceRelease(colorSpaceRef);
 //        CGGradientRelease(gradient);
+        CGContextRestoreGState(context);
     }
 }
 

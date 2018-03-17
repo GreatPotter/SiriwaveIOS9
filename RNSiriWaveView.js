@@ -12,6 +12,9 @@ class RNSiriWaveView extends Component {
   render() {
       return <SiriWaveView style={{ width: this.props.width, height: this.props.height }} 
         props={{
+          intensity : this.props.intensity,
+          speed: this.props.speed,
+          colors : this.props.colors,
           width: this.props.width,
           height: this.props.height,
           numberOfWaves: this.props.numberOfWaves,
@@ -33,10 +36,17 @@ class RNSiriWaveView extends Component {
 RNSiriWaveView.propTypes = {
   ...ViewPropTypes,
 
+  intensity : PropTypes.number,
+  colors : PropTypes.arrayOf(PropTypes.string),
+
+  speed : PropTypes.number,
+
   width: PropTypes.number,
   height: PropTypes.number,
   props: PropTypes.object,
 
+
+  amplitude: PropTypes.number,
   numberOfWaves: PropTypes.number,
   backgroundColor: PropTypes.string,
   waveColor: PropTypes.string,
@@ -44,7 +54,6 @@ RNSiriWaveView.propTypes = {
   secondaryWaveLineWidth: PropTypes.number,
   frequency: PropTypes.number,
   idleAmplitude: PropTypes.number,
-  amplitude: PropTypes.number,
   density: PropTypes.number,
   phaseShift: PropTypes.number,
 
@@ -55,6 +64,10 @@ RNSiriWaveView.propTypes = {
 RNSiriWaveView.defaultProps = {
   width: 200,
   height: 100,
+
+  colors : ['#2085fc', '#5efca9', '#fd4767'],
+  intensity : 0.3,
+  speed: 0.05,
 
   numberOfWaves: 5,
   backgroundColor: '#FFFFFF',
