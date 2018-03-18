@@ -28,6 +28,11 @@ RCT_CUSTOM_VIEW_PROPERTY(props, NSDictonary *, UIView)
     NSString *backgroundColor = [json objectForKey: @"backgroundColor"];
     NSNumber *frequency = [json objectForKey: @"frequency"];
     NSNumber *amplitude = [json objectForKey: @"amplitude"];
+<<<<<<< HEAD
+=======
+    NSNumber *density = [json objectForKey: @"density"];
+    NSNumber *phaseShift = [json objectForKey: @"phaseShift"];
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
     NSNumber *intensity = [json objectForKey: @"intensity"];
     NSNumber *speed1 = [json objectForKey: @"speed"];
     speed = [speed1 floatValue];
@@ -41,7 +46,14 @@ RCT_CUSTOM_VIEW_PROPERTY(props, NSDictonary *, UIView)
     SCSiriWaveformView *siriWave = [[SCSiriWaveformView alloc] initWithFrame: CGRectMake(0, 0, [width intValue], [height intValue])];
     siriWave.backgroundColor = [RNSiriWaveView colorFromHexCode: backgroundColor];
     siriWave.frequency = [frequency floatValue];
+<<<<<<< HEAD
     siriWave.amplitude = [amplitude floatValue];
+=======
+    siriWave.idleAmplitude = [idleAmplitude floatValue];
+    siriWave.amplitude = [amplitude floatValue];
+    siriWave.density = [density floatValue];
+    siriWave.phaseShift = [phaseShift floatValue];
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
     siriWave.intensity = [intensity floatValue];
     siriWave.colors = temp;
     

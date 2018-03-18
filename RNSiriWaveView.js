@@ -38,9 +38,21 @@ RNSiriWaveView.propTypes = {
   height: PropTypes.number,
   props: PropTypes.object,
 
+<<<<<<< HEAD
   amplitude: PropTypes.number,
+=======
+
+  amplitude: PropTypes.number,
+  numberOfWaves: PropTypes.number,
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
   backgroundColor: PropTypes.string,
   frequency: PropTypes.number,
+<<<<<<< HEAD
+=======
+  idleAmplitude: PropTypes.number,
+  density: PropTypes.number,
+  phaseShift: PropTypes.number,
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
 
   startAnimation: PropTypes.bool,
   stopAnimation: PropTypes.bool
@@ -54,6 +66,10 @@ RNSiriWaveView.defaultProps = {
   intensity : 0.3,
   speed: 0.05,
 
+<<<<<<< HEAD
+=======
+  numberOfWaves: 5,
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
   backgroundColor: '#FFFFFF',
   frequency: 1.5,
   amplitude: 0.01,

@@ -34,7 +34,11 @@ export default class App extends Component<{}> {
         <RNSiriWaveView intensity = {0.3} 
           backgroundColor = {"#000"}
           colors = {['#2085fc', '#5efca9', '#fd4767']}
+<<<<<<< HEAD
           speed = {0.05}
+=======
+          speed = {0.08}
+>>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
           width={400} 
           height={100} 
           startAnimation={this.state.startAnimation} 
