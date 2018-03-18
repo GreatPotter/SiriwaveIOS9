@@ -12,25 +12,9 @@
 
 static const CGFloat kDefaultFrequency          = 1.5f;
 static const CGFloat kDefaultAmplitude          = 0.1f;
-<<<<<<< HEAD
 
 @interface SCSiriWaveformView ()
 
-=======
-static const CGFloat kDefaultIdleAmplitude      = 0.01f;
-static const CGFloat kDefaultNumberOfWaves      = 5.0f;
-static const CGFloat kDefaultPhaseShift         = -0.15f;
-static const CGFloat kDefaultDensity            = 5.0f;
-static const CGFloat kDefaultPrimaryLineWidth   = 3.0f;
-static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
-
-@interface SCSiriWaveformView ()
-
-@property (nonatomic, assign) CGFloat phase;
-
-@property (nonatomic, assign) CGFloat width;
-@property (nonatomic, assign) CGFloat height;
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
 @property (nonatomic) NSMutableArray *curves;
 
 @end
@@ -59,17 +43,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
 {
     self.frequency = kDefaultFrequency;
     self.amplitude = kDefaultAmplitude;
-<<<<<<< HEAD
-=======
-    self.idleAmplitude = kDefaultIdleAmplitude;
-    
-    self.numberOfWaves = kDefaultNumberOfWaves;
-    self.phaseShift = kDefaultPhaseShift;
-    self.density = kDefaultDensity;
-    
-    self.primaryWaveLineWidth = kDefaultPrimaryLineWidth;
-    self.secondaryWaveLineWidth = kDefaultSecondaryLineWidth;
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
 }
 
 -(void)configure
@@ -77,28 +50,14 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
     self.curves = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < _colors.count; i++) {
-<<<<<<< HEAD
         for (int j = 0; j < 3 * ((float)rand() / RAND_MAX) + 1; j++) {
             [self.curves addObject:[[SiriWaveCurve alloc] init]];
-=======
-        UIColor *col = self.colors[i];
-        for (int j = 0; j < 3 * ((float)rand() / RAND_MAX) + 1; j++) {
-            SiriWaveCurve *curve = [[SiriWaveCurve alloc] init];
-            curve.color = col;
-            curve.parent = self;
-            [self.curves addObject:curve];
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
         }
     }
 }
 
 - (void)updateWithLevel:(CGFloat)level
 {
-<<<<<<< HEAD
-=======
-    self.phase += self.phaseShift;
-//    self.amplitude = fmax(level, self.idleAmplitude);
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
     CGFloat speed = 0.1;
     if (fabs(self.amplitude - _intensity) < speed) {
         self.amplitude = _intensity;
@@ -113,7 +72,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
     [self setNeedsDisplay];
 }
 
-// Thanks to Raffael Hannemann https://github.com/raffael/SISinusWaveView
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -153,15 +111,8 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
             xInit = fmin(xInit, x);
             
             if (j == -3) {
-<<<<<<< HEAD
                 CGPathMoveToPoint(path, NULL, x, y);
             } else {
-=======
-//                CGContextMoveToPoint(context, x, y);
-                CGPathMoveToPoint(path, NULL, x, y);
-            } else {
-//                CGContextAddLineToPoint(context, x, y);
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
                 CGPathAddLineToPoint(path, NULL, x, y);
             }
         }
@@ -175,15 +126,8 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
             xInit = fmin(xInit, x);
             
             if (j == -3) {
-<<<<<<< HEAD
                 CGPathMoveToPoint(path, NULL, x, y);
             } else {
-=======
-                //                CGContextMoveToPoint(context, x, y);
-                CGPathMoveToPoint(path, NULL, x, y);
-            } else {
-                //                CGContextAddLineToPoint(context, x, y);
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
                 CGPathAddLineToPoint(path, NULL, x, y);
             }
         }
@@ -195,11 +139,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
         CGContextAddPath(context, path);
         CGContextClip(context);
         
-<<<<<<< HEAD
-=======
-//        CGContextStrokePath(context);
-
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
         CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
         UIColor *color = self.colors[i%3];
         const CGFloat *col = CGColorGetComponents( color.CGColor );
@@ -213,13 +152,6 @@ static const CGFloat kDefaultSecondaryLineWidth = 1.0f;
         CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpaceRef, components, locations, 2);
         CGContextDrawRadialGradient(context, gradient, center, width2 , center, h * 0.3, kCGGradientDrawsAfterEndLocation);
         
-<<<<<<< HEAD
-=======
-
-        // Release objects
-//        CGColorSpaceRelease(colorSpaceRef);
-//        CGGradientRelease(gradient);
->>>>>>> 0613abefb0528881f6caad3377566447ab77a3a2
         CGContextRestoreGState(context);
     }
 }
