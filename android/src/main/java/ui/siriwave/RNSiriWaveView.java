@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
@@ -39,30 +40,29 @@ public class RNSiriWaveView extends ViewGroupManager<ViewGroup> {
         int width = props.getInt("width");
         int height = props.getInt("height");
 
-        int numberOfWaves = props.getInt("numberOfWaves");
         String backgroundColor = props.getString("backgroundColor");
-        String waveColor = props.getString("waveColor");
-
-        int primaryWaveLineWidth = props.getInt("primaryWaveLineWidth");
-        int secondaryWaveLineWidth = props.getInt("secondaryWaveLineWidth");
 
         double frequency = props.getDouble("frequency");
-        double idleAmplitude = props.getDouble("idleAmplitude");
         double amplitude = props.getDouble("amplitude");
-        double density = props.getDouble("density");
-        double phaseShift = props.getDouble("phaseShift");
+        double speed = props.getDouble( "speed");
+        double intensity = props.getDouble("intensity");
 
+        ReadableArray colors = props.getArray("colors");
+        int[] cols = new int[colors.size()];
+        for (int i = 0 ; i < colors.size(); i++) {
+            cols[i] = Color.parseColor(colors.getString(i));
+        }
 
         SiriWaveView siriWaveView = new SiriWaveView(activity);
 
-        siriWaveView.waveNumber = numberOfWaves;
-        siriWaveView.waveColor = Color.parseColor(waveColor);
-        siriWaveView.waveHeight = primaryWaveLineWidth;
         siriWaveView.frequency = Double.valueOf(frequency).floatValue();
-        siriWaveView.IdleAmplitude = Double.valueOf(idleAmplitude).floatValue();
         siriWaveView.amplitude = Double.valueOf(amplitude).floatValue();
+        siriWaveView.speed = Double.valueOf(speed).floatValue();
+        siriWaveView.intensity = Double.valueOf(intensity).floatValue();
+        siriWaveView.colors = cols;
         siriWaveView.init(activity, null);
 
+        siriWaveView.configure();
         siriWaveViewFrame.addView(siriWaveView);
     }
 

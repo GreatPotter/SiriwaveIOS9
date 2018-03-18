@@ -4,30 +4,32 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.alex.siriwaveview.SiriWaveCurve;
+
+import java.util.Random;
 
 /**
  * Created by Alex on 6/25/2016.
  */
 public class SiriWaveView extends View {
 
+    private SiriWaveCurve[] curves;
     private Path mPath;
     private Paint mPaint;
 
+    public float intensity;
+    public float speed;
+    public int[] colors;
     public float frequency = 1.5f;
-    public float IdleAmplitude = 0.00f;
-    public int waveNumber = 2;
-    public float phaseShift = 0.15f;
-    public float initialPhaseOffset = 0.0f;
-    public float waveHeight;
-    public float waveVerticalPosition = 2;
-    public int waveColor;
-    public float phase;
     public float amplitude;
-    public float level = 1.0f;
 
     ObjectAnimator mAmplitudeAnimator;
 
@@ -52,27 +54,31 @@ public class SiriWaveView extends View {
     public void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, com.alex.siriwaveview.R.styleable.SiriWaveView);
         frequency = a.getFloat(com.alex.siriwaveview.R.styleable.SiriWaveView_waveFrequency, frequency);
-        IdleAmplitude = a.getFloat(com.alex.siriwaveview.R.styleable.SiriWaveView_waveIdleAmplitude, IdleAmplitude);
-        phaseShift = a.getFloat(com.alex.siriwaveview.R.styleable.SiriWaveView_wavePhaseShift, phaseShift);
-        initialPhaseOffset = a.getFloat(com.alex.siriwaveview.R.styleable.SiriWaveView_waveInitialPhaseOffset, initialPhaseOffset);
-        waveHeight = a.getDimension(com.alex.siriwaveview.R.styleable.SiriWaveView_waveHeight, waveHeight);
-        waveColor = a.getColor(com.alex.siriwaveview.R.styleable.SiriWaveView_waveColor, waveColor);
-        waveVerticalPosition = a.getFloat(com.alex.siriwaveview.R.styleable.SiriWaveView_waveVerticalPosition, waveVerticalPosition);
-        waveNumber = a.getInteger(R.styleable.SiriWaveView_waveAmount, waveNumber);
+        speed = a.getFloat(R.styleable.SiriWaveView_speed, speed);
+        intensity = a.getFloat(R.styleable.SiriWaveView_intensity, intensity);
 
         mPath = new Path();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(2);
-        mPaint.setColor(waveColor);
+        mPaint.setColor(Color.WHITE);
 
         a.recycle();
         initAnimation();
     }
 
+    public void configure() {
+        Random r = new Random();
+        int length = this.colors.length * (r.nextInt(2) + 1);
+        this.curves = new SiriWaveCurve[length];
+
+        for (int i = 0; i < length; i++)
+            this.curves[i] = new SiriWaveCurve();
+    }
+
     private void initAnimation() {
         if (mAmplitudeAnimator == null) {
-            mAmplitudeAnimator = ObjectAnimator.ofFloat(this, "amplitude", 1f);
+            mAmplitudeAnimator = ObjectAnimator.ofFloat(this, "amplitude", .1f);
             mAmplitudeAnimator.setRepeatCount(ObjectAnimator.INFINITE);
         }
         if (!mAmplitudeAnimator.isRunning()) {
@@ -82,47 +88,99 @@ public class SiriWaveView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawPath(mPath, mPaint);
-        updatePath();
-    }
+        updateAmplitude();
 
-    private void updatePath() {
         mPath.reset();
 
-        phase += phaseShift;
-        amplitude = Math.max(level, IdleAmplitude);
+        float width = canvas.getWidth();
+        float height = canvas.getHeight();
+        float height2 = height / 2.0f;
+        float width2 = width / 2.0f;
+        float width4 = width / 4.0f;
+        float maxAmplitude = height2 - 2;
 
-        for (int i = 0; i < waveNumber; i++) {
-            float halfHeight = getHeight() / waveVerticalPosition;
-            float width = getWidth();
-            float mid = width / 2.0f;
+        for (int i = 0; i < this.curves.length; i++) {
 
-            float maxAmplitude = halfHeight - (halfHeight - waveHeight);
+            this.curves[i].changeTick();
 
-            // Progress is a value between 1.0 and -0.5, determined by the current wave idx, which is used to alter the wave's amplitude.
-            float progress = 1.0f - (float) i / waveNumber;
-            float normedAmplitude = (1.5f * progress - 0.5f) * amplitude;
+            SiriWaveCurve curve = this.curves[i];
+            float xBase = width2 + (-width4 + curve.seed * width2);
+            float yBase = height2;
 
-            float multiplier = (float) Math.min(1.0, (progress / 3.0f * 2.0f) + (1.0f / 3.0f));
+            float t_amplitude = (float) (this.amplitude / (Math.abs(width2 - xBase) / width4 + 1.0f));
+            float x, y, xInit = 10000000;
+            for (float j = -3; j <= 3; j += 0.01) {
+                x = xBase + j * width4;
+                y = yBase + this.curves[i]._ypos(j, t_amplitude, maxAmplitude);
 
-            for (int x = 0; x < width; x++) {
-                float scaling = (float) (-Math.pow(1 / mid * (x - mid), 2) + 1);
+                xInit = Math.min(xInit, x);
 
-                float y = (float) (scaling * maxAmplitude * normedAmplitude * Math.sin(2 * Math.PI * (x / width) * frequency + phase + initialPhaseOffset) + halfHeight);
-
-                if (x == 0) {
+                if (j == -3) {
                     mPath.moveTo(x, y);
                 } else {
                     mPath.lineTo(x, y);
                 }
             }
-        }
+            mPath.lineTo(xInit, yBase);
 
-        //mPath.close();
+            xInit = 10000000;
+            for (float j = -3; j <= 3; j += 0.01) {
+                x = xBase + j * width4;
+                y = yBase - this.curves[i]._ypos(j, t_amplitude, maxAmplitude);
+
+                xInit = Math.min(xInit, x);
+
+                if (j == -3) {
+                    mPath.moveTo(x, y);
+                } else {
+                    mPath.lineTo(x, y);
+                }
+            }
+
+            mPath.lineTo(xInit, yBase);
+
+            float h = Math.abs(this.curves[i]._ypos(0, t_amplitude, maxAmplitude));
+
+            mPaint.setStyle(Paint.Style.FILL);
+
+            float shaderCx = xBase;
+            float shaderCy = yBase;
+            int red =   (colors[i%3] >> 16) & 0xFF;
+            int green = (colors[i%3] >> 8) & 0xFF;
+            int blue =  (colors[i%3] >> 0) & 0xFF;
+            int col1 = Color.argb(100, red, green, blue);
+            int col2 = Color.argb(50, red, green, blue);
+            int []cols = {col1, col2};
+            float []stops = {0, 1};
+
+            mPaint.setAntiAlias(true);
+            Shader radialGradientShader;
+
+            radialGradientShader = new RadialGradient(
+                    shaderCx, shaderCy, (float) (width2),
+                    cols, stops,
+                    Shader.TileMode.CLAMP);
+            mPaint.setShader(radialGradientShader);
+
+            canvas.drawPath(mPath, mPaint);
+        }
+    }
+
+    private void updateAmplitude() {
+        float speed = (float) 0.1;
+        if (Math.abs(this.amplitude - this.intensity) < speed) {
+            this.amplitude = this.intensity;
+        } else {
+            if (this.amplitude < this.intensity) {
+                this.amplitude += speed;
+            } else {
+                this.amplitude -= speed;
+            }
+        }
     }
 
     private void setAmplitude(float amplitude) {
-        this.amplitude = amplitude;
+        this.amplitude = 1f;
         invalidate();
     }
 
