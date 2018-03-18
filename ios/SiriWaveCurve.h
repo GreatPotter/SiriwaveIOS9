@@ -14,12 +14,10 @@
 
 @interface SiriWaveCurve : NSObject
 
-@property (nonatomic, weak) SCSiriWaveformView *parent;
 @property (nonatomic, assign) CGFloat tick;
 @property (nonatomic, assign) CGFloat amplitude;
 @property (nonatomic, assign) CGFloat seed;
 @property (nonatomic, assign) CGFloat openClass;
-@property (nonatomic) UIColor *color;
 
 - (void)respawn;
 

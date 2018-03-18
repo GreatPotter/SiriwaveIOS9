@@ -31,7 +31,15 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <RNSiriWaveView width={400} height={200} startAnimation={this.state.startAnimation} stopAnimation={this.state.stopAnimation} />
+        <RNSiriWaveView intensity = {0.3} 
+          backgroundColor = {"#000"}
+          colors = {['#2085fc', '#5efca9', '#fd4767']}
+          speed = {0.05}
+          width={400} 
+          height={100} 
+          startAnimation={this.state.startAnimation} 
+          stopAnimation={this.state.stopAnimation} 
+          amplitude = {1}/>
       </View>
     );
   }
@@ -44,6 +52,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#000"
   }
 });

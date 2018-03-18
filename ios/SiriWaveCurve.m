@@ -39,7 +39,7 @@
 
 - (void)changeTick
 {
-    self.tick += 0.05 * (1 - 0.5 * sin(self.seed * M_PI));
+    self.tick += 0.2 * (1 - 0.5 * sin(self.seed * M_PI));
 }
 
 

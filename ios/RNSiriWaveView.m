@@ -4,6 +4,7 @@
 @implementation RNSiriWaveView
 
 NSTimer *timer;
+CGFloat speed;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -24,30 +25,25 @@ RCT_CUSTOM_VIEW_PROPERTY(props, NSDictonary *, UIView)
     NSNumber *width = [json objectForKey: @"width"];
     NSNumber *height = [json objectForKey: @"height"];
     
-    NSNumber *numberOfWaves = [json objectForKey: @"numberOfWaves"];
     NSString *backgroundColor = [json objectForKey: @"backgroundColor"];
-    NSString *waveColor = [json objectForKey: @"waveColor"];
-    
-    NSNumber *primaryWaveLineWidth = [json objectForKey: @"primaryWaveLineWidth"];
-    NSNumber *secondaryWaveLineWidth = [json objectForKey: @"secondaryWaveLineWidth"];
-    
     NSNumber *frequency = [json objectForKey: @"frequency"];
-    NSNumber *idleAmplitude = [json objectForKey: @"idleAmplitude"];
     NSNumber *amplitude = [json objectForKey: @"amplitude"];
-    NSNumber *density = [json objectForKey: @"density"];
-    NSNumber *phaseShift = [json objectForKey: @"phaseShift"];
+    NSNumber *intensity = [json objectForKey: @"intensity"];
+    NSNumber *speed1 = [json objectForKey: @"speed"];
+    speed = [speed1 floatValue];
+    
+    NSArray *colors = [json objectForKey:@"colors"];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    for (NSString *color in colors) {
+        [temp addObject:[RNSiriWaveView colorFromHexCode: color]];
+    }
     
     SCSiriWaveformView *siriWave = [[SCSiriWaveformView alloc] initWithFrame: CGRectMake(0, 0, [width intValue], [height intValue])];
-    siriWave.numberOfWaves = [numberOfWaves floatValue];
     siriWave.backgroundColor = [RNSiriWaveView colorFromHexCode: backgroundColor];
-    siriWave.waveColor = [RNSiriWaveView colorFromHexCode: waveColor];
-    siriWave.primaryWaveLineWidth = [primaryWaveLineWidth floatValue];
-    siriWave.secondaryWaveLineWidth = [secondaryWaveLineWidth floatValue];
     siriWave.frequency = [frequency floatValue];
-    siriWave.idleAmplitude = [idleAmplitude floatValue];
-//    siriWave.amplitude = [amplitude floatValue];
-    siriWave.density = [density floatValue];
-    siriWave.phaseShift = [phaseShift floatValue];
+    siriWave.amplitude = [amplitude floatValue];
+    siriWave.intensity = [intensity floatValue];
+    siriWave.colors = temp;
     
     [siriWave configure];
     
@@ -59,7 +55,7 @@ RCT_CUSTOM_VIEW_PROPERTY(startAnimation, bool, UIView) {
         SCSiriWaveformView *siriWave = [[view subviews] objectAtIndex: 0];
         
         // Timer
-        timer = [NSTimer scheduledTimerWithTimeInterval: 0.02
+        timer = [NSTimer scheduledTimerWithTimeInterval: speed
                                          target:self
                                        selector: @selector(targetMethod:)
                                        userInfo: siriWave
